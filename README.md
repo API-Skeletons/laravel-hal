@@ -114,4 +114,4 @@ With Thanks
 
 This work would not have been possible without an article written by
 Giulio Troccoli-Allard: 
-(Using HAL in content APIs)[https://troccoli.it/using-hal-in-content-api/]
+[Using HAL in content APIs](https://troccoli.it/using-hal-in-content-api/)

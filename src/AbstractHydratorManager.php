@@ -1,11 +1,8 @@
 <?php
 
-namespace App\HAL;
+namespace ApiSkeletons\Laravel\HAL;
 
-use App;
-use App\HAL\Contracts\HydratorManagerContract;
-
-use function spl_object_id;
+use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 
 class AbstractHydratorManager implements HydratorManagerContract
 {

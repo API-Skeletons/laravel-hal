@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HAL\Exception;
+namespace ApiSkeletons\Laravel\HAL\Exception;
 
 use Exception;
 

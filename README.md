@@ -23,12 +23,15 @@ Configuration
 -------------
 
 Extend `ApiSkeletons\Laravel\HAL\AbstractHydratorManager`
-and add your models and hydrators to the `$classHydrators` array as such:
+and add your classes and hydrators to the `$classHydrators` array as such:
+
 ```php
 protected $classHydrators = [
     App\Models\User::class => App\HAL\Hydrators\UserHydrator::class,
 ];
 ```
+
+Please note that you can hydrate any class; you're not limited to Eloquent models.
 
 It is suggested you create a facade for your new HydratorManager class.  This 
 doc will call it `HALHydratorManager`

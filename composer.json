@@ -9,5 +9,10 @@
             "email": "tom.h.anderson@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ApiSkeletons\\Laraval\\HAL\\": "src/"
+        }
+    }
 }

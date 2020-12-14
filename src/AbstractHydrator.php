@@ -1,9 +1,9 @@
 <?php
 
-namespace App\HAL;
+namespace ApiSkeletons\Laravel\HAL;
 
-use App\HAL\Contracts\HydratorContract;
-use App\HAL\Contracts\HydratorManagerContract;
+use ApiSkeletons\Laravel\HAL\Contracts\HydratorContract;
+use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 
 abstract class AbstractHydrator implements HydratorContract
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HAL;
+namespace ApiSkeletons\Laravel\HAL;
 
 use Illuminate\Support\Collection;
 
@@ -28,11 +28,7 @@ class Resource
 
     public function addLink($ref, $href): self
     {
-        $ref = trim(strtolower($ref));
-
-        if ($ref != 'self') {
-            $this->links[$ref] = trim(strtolower($href));
-        }
+        $this->links[$ref] = trim(strtolower($href));
 
         return $this;
     }

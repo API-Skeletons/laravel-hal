@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Hal\Contracts;
+namespace ApiSkeletons\Laravel\HAL\Contracts;
 
-use App\Hal\Resource;
+use ApiSkeletons\Laravel\HAL\Resource;
 
 interface HydratorContract
 {

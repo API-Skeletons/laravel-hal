@@ -108,6 +108,42 @@ With your hydrators in place you may return your HAL response using
 return HALHydratorManager::extract($user)->toArray();
 ```
 
+this will result in 
+
+```json
+{
+  "_links":{
+    "self":{
+      "href":"https://apiskeletons.com/api/me"
+    }
+  },
+  "id":1,
+  "name":"Tom H Anderson",
+  "email":"tom.h.anderson@gmail.com",
+  "created_at":{
+    "date":"2020-12-11 14:11:05.000000",
+    "timezone_type":3,
+    "timezone":"America/Denver"
+  },
+  "updated_at":{
+    "date":"2020-12-11 14:11:05.000000",
+    "timezone_type":3,
+    "timezone":"America/Denver"
+  },
+  "_embedded":{
+    "roles":[
+      {
+        "id":1,
+        "name":"admin",
+        "guard_name":"web",
+        "created_at":"2020-12-11 14:09:29",
+        "updated_at":"2020-12-11 14:09:29"
+      }
+    ]
+  }
+}
+```
+
 
 With Thanks
 -----------

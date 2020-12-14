@@ -2,6 +2,7 @@
 
 namespace ApiSkeletons\Laravel\HAL;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class Resource
@@ -21,6 +22,12 @@ class Resource
 
     public function setState($data): self
     {
+        foreach ($data as $key => $value) {
+            if ($value instanceof Carbon) {
+                $data[$key] = $value->toJson();
+            }
+        }
+
         $this->state = $data;
 
         return $this;

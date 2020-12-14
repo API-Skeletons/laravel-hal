@@ -1,0 +1,13 @@
+{
+    "name": "api-skeletons/laravel-hal",
+    "description": "Hypertext Application Language for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom H Anderson",
+            "email": "tom.h.anderson@gmail.com"
+        }
+    ],
+    "require": {}
+}

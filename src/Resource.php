@@ -43,12 +43,7 @@ class Resource
 
     public function addEmbeddedResource($ref, Resource $resource): self
     {
-        $ref = trim(strtolower($ref));
-
-        if (! isset($this->embedded[$ref])) {
-            $this->embedded[$ref] = [];
-        }
-        $this->embedded[$ref][] = $resource;
+        $this->embedded[$ref] = $resource;
 
         return $this;
     }
@@ -61,7 +56,7 @@ class Resource
 
         $collection->each(function ($item) use ($ref) {
             if ($this->hydratorManager->canExtract($item)) {
-                $this->addEmbeddedResource($ref, $this->hydratorManager->extract($item));
+                $this->embedded[$ref][] = $this->hydratorManager->extract($item);
             } else {
                 $this->addEmbeddedResource($ref, (new self)->setHydratorManager($this->hydratorManager)->setState($item));
             }
@@ -91,9 +86,14 @@ class Resource
             $data['_embedded'] = [];
 
             foreach ($this->embedded as $ref => $resources) {
-                $data['_embedded'][$ref] = [];
-                foreach ($resources as $resource) {
-                    $data['_embedded'][$ref][] = $resource->toArray();
+
+                if (is_array($resources)) {
+                    $data['_embedded'][$ref] = [];
+                    foreach ($resources as $resource) {
+                        $data['_embedded'][$ref][] = $resource->toArray();
+                    }
+                } else {
+                    $data['_embedded'][$ref] = $resources->toArray();
                 }
             }
         }

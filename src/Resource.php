@@ -10,6 +10,7 @@ class Resource
     protected $state = [];
     protected $links = [];
     protected $embedded = [];
+    protected $paginationData = [];
 
     private $hydratorManager;
 
@@ -44,7 +45,7 @@ class Resource
     {
         $ref = trim(strtolower($ref));
 
-        if (!isset($this->embedded[$ref])) {
+        if (! isset($this->embedded[$ref])) {
             $this->embedded[$ref] = [];
         }
         $this->embedded[$ref][] = $resource;
@@ -56,10 +57,7 @@ class Resource
     {
         $collection->each(function ($item) use ($ref) {
             if ($this->hydratorManager->canExtract($item)) {
-                $this->addEmbeddedResource(
-                    $ref,
-                    (new self)->setHydratorManager($this->hydratorManager)->setState($this->hydratorManager->extract($item))
-                );
+                $this->addEmbeddedResource($ref, $this->hydratorManager->extract($item));
             } else {
                 $this->addEmbeddedResource($ref, (new self)->setHydratorManager($this->hydratorManager)->setState($item));
             }
@@ -68,7 +66,14 @@ class Resource
         return $this;
     }
 
-    public function toArray(): array
+    public function addPaginationData(array $paginationData): self
+    {
+        $this->paginationData = $paginationData;
+
+        return $this;
+    }
+
+    public function toArray()
     {
         $data = $this->state;
 
@@ -85,6 +90,10 @@ class Resource
                     $data['_embedded'][$ref][] = $resource->toArray();
                 }
             }
+        }
+
+        if ($this->paginationData) {
+            $data = array_merge($data, $this->paginationData);
         }
 
         return $data;

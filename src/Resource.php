@@ -79,11 +79,13 @@ class Resource
 
     public function toArray()
     {
-        $data = $this->state;
+        $data = [];
 
         foreach ($this->links as $ref => $href) {
             $data['_links'][$ref]['href'] = $href;
         }
+
+        $data = array_merge($data, $this->state);
 
         if ($this->embedded) {
             $data['_embedded'] = [];

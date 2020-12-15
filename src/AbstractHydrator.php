@@ -22,5 +22,12 @@ abstract class AbstractHydrator implements HydratorContract
             ->setHydratorManager($this->hydratorManager)
             ->setState($data);
     }
+
+    public function strategy($strategyName, ...$args)
+    {
+        $strategy = new $strategyName($this->hydratorManager);
+
+        return $strategy(...$args);
+    }
 }
 

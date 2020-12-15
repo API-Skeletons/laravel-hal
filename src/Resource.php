@@ -55,6 +55,10 @@ class Resource
 
     public function addEmbeddedResources($ref, Collection $collection): self
     {
+        if (! isset($this->embedded[$ref])) {
+            $this->embedded[$ref] = [];
+        }
+
         $collection->each(function ($item) use ($ref) {
             if ($this->hydratorManager->canExtract($item)) {
                 $this->addEmbeddedResource($ref, $this->hydratorManager->extract($item));

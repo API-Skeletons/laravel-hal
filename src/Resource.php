@@ -31,6 +31,10 @@ class Resource
 
         $this->state = $data;
 
+        if ($data && is_object($data)) {
+            throw new Exception\UnsafeObject();
+        }
+
         return $this;
     }
 
@@ -58,7 +62,7 @@ class Resource
             if ($this->hydratorManager->canExtract($item)) {
                 $this->embedded[$ref][] = $this->hydratorManager->extract($item);
             } else {
-                $this->addEmbeddedResource($ref, (new self)->setHydratorManager($this->hydratorManager)->setState($item));
+                $this->embedded[$ref][] = (new self)->setHydratorManager($this->hydratorManager)->setState($item);
             }
         });
 
@@ -100,6 +104,10 @@ class Resource
 
         if ($this->paginationData) {
             $data = array_merge($data, $this->paginationData);
+        }
+
+        if (! $data) {
+            return null;
         }
 
         return $data;

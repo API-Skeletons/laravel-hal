@@ -23,6 +23,10 @@ class Resource
 
     public function setState($data): self
     {
+        if (! $data) {
+            return $this;
+        }
+
         foreach ($data as $key => $value) {
             if ($value instanceof Carbon) {
                 $data[$key] = $value->toJson();

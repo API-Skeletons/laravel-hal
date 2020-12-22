@@ -89,8 +89,9 @@ class AbstractHydratorManager implements HydratorManagerContract
     /**
      * Return an empty resource
      */
-    public function resource(): Resource
+    public function resource($data = null): Resource
     {
-        return $this->extract(null);
+        return $this->extract(null)
+            ->setState($data);
     }
 }

@@ -48,22 +48,27 @@ class AbstractHydratorManager implements HydratorManagerContract
         return true;
     }
 
-    public function extract($class): Resource
+    public function extract($class, $overrideHydrator = null): Resource
     {
         if (! $class) {
-            return new Resource($this);
+            return (new Resource($this))->setHydratorManager($this);
         }
 
-        if (! isset($this->classHydrators[get_class($class)])) {
+        if (! $overrideHydrator && ! isset($this->classHydrators[get_class($class)])) {
             throw new Exception\NoHydrator(get_class($class));
         }
 
-        $extractorClass = $this->classHydrators[get_class($class)];
+        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
 
-        if ($this->canExtract($class)) {
+        if ($overrideHydrator || $this->canExtract($class)) {
             return (new $extractorClass())->setHydratorManager($this)->extract($class);
         }
 
         throw new Exception\UnsafeObject();
+    }
+
+    public function resource()
+    {
+        return $this->extract(null);
     }
 }

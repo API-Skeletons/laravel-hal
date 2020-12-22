@@ -8,7 +8,7 @@ class EntityLink extends AbstractStrategy
 {
     public function __invoke(...$args)
     {
-        return (new Resource($this->hydratorManager))
+        return $this->hydratorManager->resource()
             ->addLink('self', $args[0]);
     }
 }

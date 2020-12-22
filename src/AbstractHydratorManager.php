@@ -5,6 +5,7 @@ namespace ApiSkeletons\Laravel\HAL;
 use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 use ApiSkeletons\Laravel\HAL\Resource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class AbstractHydratorManager implements HydratorManagerContract
 {
@@ -48,26 +49,47 @@ class AbstractHydratorManager implements HydratorManagerContract
         return true;
     }
 
-    public function extract($class, $overrideHydrator = null): Resource
+    protected function extractCollection($class, $overrideHydrator): Resource
+    {
+
+    }
+
+    /**
+     * @return Resource|Collection
+     */
+    public function extract($class, $overrideHydrator = null)
     {
         if (! $class) {
-            return (new Resource($this))->setHydratorManager($this);
+            return (new Resource())->setHydratorManager($this);
         }
+
+        // Allow for collections of classes to be extracted into a collection
+        if ($class instanceof Collection) {
+            $resources = collect();
+            foreach ($class as $entity) {
+                $resources->push($this->extract($entity, $overrideHydrator ?: null));
+            }
+
+            return $resources;
+        }
+
+        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
 
         if (! $overrideHydrator && ! isset($this->classHydrators[get_class($class)])) {
             throw new Exception\NoHydrator(get_class($class));
         }
 
-        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
-
         if ($overrideHydrator || $this->canExtract($class)) {
             return (new $extractorClass())->setHydratorManager($this)->extract($class);
         }
 
-        throw new Exception\UnsafeObject();
+        throw new Exception\UnsafeObject($class);
     }
 
-    public function resource()
+    /**
+     * Return an empty resource
+     */
+    public function resource(): Resource
     {
         return $this->extract(null);
     }

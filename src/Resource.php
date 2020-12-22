@@ -32,7 +32,8 @@ class Resource
         $this->state = $data;
 
         if ($data && is_object($data)) {
-            throw new Exception\UnsafeObject();
+            //debug_print_backtrace();
+            throw new Exception\UnsafeObject($data);
         }
 
         return $this;
@@ -59,7 +60,9 @@ class Resource
         }
 
         $collection->each(function ($item) use ($ref) {
-            if ($this->hydratorManager->canExtract($item)) {
+            if ($item instanceof Resource) {
+                $this->embedded[$ref][] = $item;
+            } else if ($this->hydratorManager->canExtract($item)) {
                 $this->embedded[$ref][] = $this->hydratorManager->extract($item);
             } else {
                 $this->embedded[$ref][] = (new self)->setHydratorManager($this->hydratorManager)->setState($item);

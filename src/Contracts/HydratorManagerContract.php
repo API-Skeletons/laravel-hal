@@ -7,5 +7,9 @@ use ApiSkeletons\Laravel\HAL\Resource;
 interface HydratorManagerContract
 {
     public function canExtract($value);
-    public function extract($class): Resource;
+
+    /**
+     * @return Resource|Collection
+     */
+    public function extract($class);
 }

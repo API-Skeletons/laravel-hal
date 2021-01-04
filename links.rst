@@ -36,8 +36,6 @@ to return the Address every time so just include a link to the data::
       ->addLink('self', route('routeName', $class->id))
       ->addLink('address', route('addressRoute', $class->address->id));
 
-.. include:: footer.rst
-
 Complex Link
 ------------
 
@@ -64,3 +62,6 @@ Or::
           'title' => 'Kate',
       ]
   ]);
+
+.. include:: footer.rst
+

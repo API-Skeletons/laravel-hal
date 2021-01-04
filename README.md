@@ -1,8 +1,13 @@
 Hypertext Application Language for Laravel
 ==========================================
 
-[![Release](https://img.shields.io/github/v/release/api-skeletons/laravel-hal)](https://img.shields.io/github/v/release/api-skeletons/laravel-hal)
+[![Latest Stable Version](https://poser.pugx.org/api-skeletons/laravel-hal/v)](//packagist.org/packages/api-skeletons/laravel-hal) 
+[![Total Downloads](https://poser.pugx.org/api-skeletons/laravel-hal/downloads)](//packagist.org/packages/api-skeletons/laravel-hal) 
 [![Documentation Status](https://readthedocs.org/projects/api-skeletons-laravel-hal/badge/?version=latest)](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/?badge=latest)
+
+[![Latest Unstable Version](https://poser.pugx.org/api-skeletons/laravel-hal/v/unstable)](//packagist.org/packages/api-skeletons/laravel-hal) 
+[![License](https://poser.pugx.org/api-skeletons/laravel-hal/license)](//packagist.org/packages/api-skeletons/laravel-hal)
+
 
 
 

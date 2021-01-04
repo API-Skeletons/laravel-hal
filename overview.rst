@@ -20,7 +20,7 @@ The hydrator manager is used to extract a class using a mapped hydrator.
 
 Note it is possible to have two fully separate hydrator managers.
 
-ApiSkeletons\Laravel\HAL\Resource
+ApiSkeletons\\Laravel\\HAL\\Resource
 ---------------------------------
 As you extract data from classes using a hydrator you will be creating HAL
 Resources.  A Resource object is the common object used to compose a HAL

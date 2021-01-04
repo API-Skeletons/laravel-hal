@@ -45,7 +45,7 @@ class Resource
 
     public function addLink($ref, $href): self
     {
-        $this->links[$ref] = trim(strtolower($href));
+        $this->links[$ref] = $href;
 
         return $this;
     }
@@ -88,7 +88,13 @@ class Resource
         $data = [];
 
         foreach ($this->links as $ref => $href) {
-            $data['_links'][$ref]['href'] = $href;
+            if (is_array($href)) {
+                foreach ($href as $key => $value) {
+                    $data['_links'][$ref][$key] = $value;
+                }
+            } else {
+                $data['_links'][$ref]['href'] = $href;
+            }
         }
 
         $data = array_merge($data, $this->state);

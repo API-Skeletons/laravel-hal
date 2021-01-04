@@ -45,7 +45,7 @@ class Resource
 
     public function addLink($reference, $definition): self
     {
-        $this->links->push(new Link($reference, $definition));
+        array_push($this->links, new Link($reference, $definition));
 
         return $this;
     }

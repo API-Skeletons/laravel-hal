@@ -14,7 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "ApiSkeletons\\Laravel\\HAL\\": "src/"
+            "ApiSkeletons\\Laravel\\HAL\\": "src/",
+            "ApiSkeletonsTest\\Laravel\\HAL\\": "test/src/"
         }
     },
     "require-dev": {

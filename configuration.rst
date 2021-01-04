@@ -47,7 +47,6 @@ Now create your first hydrator::
 
           return $this->hydratorManager->resource($data)
               ->addLink('self', route('hal/user::fetch', $class->id));
-          }
       }
   }
 

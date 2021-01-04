@@ -3,7 +3,7 @@ Links
 
 HAL defines two specific structures:  ``_links`` and ``_embedded``.  This document
 discusses using links, self referential links, and related links.  For
-pagination links see `pagination <collections>`_.
+pagination links see `collections <collections.html>`_.
 
 Links are URLs to URL resources (not to be confused with a HAL resourcee
 class).  You may create any number of uniquely named links for each HAL

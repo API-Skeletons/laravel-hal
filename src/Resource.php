@@ -27,6 +27,10 @@ class Resource
             return $this;
         }
 
+        if (is_object($data)) {
+            throw new Exception\UnsafeObject($data);
+        }
+
         foreach ($data as $key => $value) {
             if ($value instanceof Carbon) {
                 $data[$key] = $value->toJson();
@@ -34,11 +38,6 @@ class Resource
         }
 
         $this->state = $data;
-
-        if ($data && is_object($data)) {
-            //debug_print_backtrace();
-            throw new Exception\UnsafeObject($data);
-        }
 
         return $this;
     }
@@ -83,7 +82,7 @@ class Resource
         return $this;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $data = [];
 
@@ -111,10 +110,6 @@ class Resource
 
         if ($this->paginationData) {
             $data = array_merge($data, $this->paginationData);
-        }
-
-        if (! $data) {
-            return null;
         }
 
         return $data;

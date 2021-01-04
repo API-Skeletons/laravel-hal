@@ -5,7 +5,7 @@ namespace ApiSkeletons\Laravel\HAL;
 use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 use ApiSkeletons\Laravel\HAL\Resource;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class AbstractHydratorManager implements HydratorManagerContract
 {
@@ -49,11 +49,6 @@ class AbstractHydratorManager implements HydratorManagerContract
         return true;
     }
 
-    protected function extractCollection($class, $overrideHydrator): Resource
-    {
-
-    }
-
     /**
      * @return Resource|Collection
      */
@@ -73,25 +68,21 @@ class AbstractHydratorManager implements HydratorManagerContract
             return $resources;
         }
 
-        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
-
         if (! $overrideHydrator && ! isset($this->classHydrators[get_class($class)])) {
             throw new Exception\NoHydrator(get_class($class));
         }
 
-        if ($overrideHydrator || $this->canExtract($class)) {
-            return (new $extractorClass())->setHydratorManager($this)->extract($class);
-        }
+        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
 
-        throw new Exception\UnsafeObject($class);
+        return (new $extractorClass())->setHydratorManager($this)->extract($class);
     }
 
     /**
-     * Return an empty resource
+     * Return an empty resource or use supplied state
      */
-    public function resource($data = null): Resource
+    public function resource($state = null): Resource
     {
         return $this->extract(null)
-            ->setState($data);
+            ->setState($state);
     }
 }

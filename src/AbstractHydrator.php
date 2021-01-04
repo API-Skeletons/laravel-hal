@@ -15,12 +15,5 @@ abstract class AbstractHydrator implements HydratorContract
 
         return $this;
     }
-
-    public function strategy($strategyName, ...$args)
-    {
-        $strategy = new $strategyName($this->hydratorManager);
-
-        return $strategy(...$args);
-    }
 }
 

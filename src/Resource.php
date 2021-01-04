@@ -43,9 +43,9 @@ class Resource
         return $this;
     }
 
-    public function addLink($ref, $def): self
+    public function addLink($reference, $definition): self
     {
-        $this->links[$ref] = $def;
+        $this->links->push(new Link($reference, $definition));
 
         return $this;
     }
@@ -87,12 +87,8 @@ class Resource
     {
         $data = [];
 
-        foreach ($this->links as $ref => $def) {
-            if (is_array($def)) {
-                $data['_links'][$ref] = $def;
-            } else {
-                $data['_links'][$ref]['href'] = $def;
-            }
+        foreach ($this->links as $link) {
+            $data['_links'][$link->getReference()] = $link->getDefinition();
         }
 
         $data = array_merge($data, $this->state);

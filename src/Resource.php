@@ -87,13 +87,11 @@ class Resource
     {
         $data = [];
 
-        foreach ($this->links as $ref => $href) {
+        foreach ($this->links as $ref => $def) {
             if (is_array($href)) {
-                foreach ($href as $key => $value) {
-                    $data['_links'][$ref][$key] = $value;
-                }
+                $data['_links'][$ref] = $def;
             } else {
-                $data['_links'][$ref]['href'] = $href;
+                $data['_links'][$ref]['href'] = $def;
             }
         }
 

@@ -38,3 +38,5 @@ to return the Address every time so just include a link to the data::
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $class->id))
       ->addLink('address', route('addressRoute', $class->address->id));
+
+.. include:: footer.rst

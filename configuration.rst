@@ -80,3 +80,5 @@ The experienced developer will take one look at this and say, "Why aren't you
 using a facade?"  And you're right.  It is recommended you use a facade for
 your hydrator manager.  The rest of this documentation will assume the use of
 a ``HALHydratorManager`` facade for the hydrator manager.
+
+.. include:: footer.rst

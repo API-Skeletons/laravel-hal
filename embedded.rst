@@ -47,3 +47,5 @@ hydrator is assigned as a resource to the currently extracting class::
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $data['id']))
       ->addEmbeddedResource('example', $this->hydratorManager->extract($class->example));
+
+.. include:: footer.rst

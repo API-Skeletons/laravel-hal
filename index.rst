@@ -24,3 +24,7 @@ to be configured.
 
   overview
   configuration
+  links
+  embedded
+
+.. include:: footer.rst

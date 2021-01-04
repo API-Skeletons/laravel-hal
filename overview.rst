@@ -38,3 +38,5 @@ Because it is possible to have multiple hydrator managers an instance of the
 hydrator manager is assigned to each hydrator and resource.  For this reason it
 is necessary that classes involved in HAL in Laravel extend from certain
 abstract classes.  This is a common pattern in Laravel services.
+
+.. include:: footer.rst

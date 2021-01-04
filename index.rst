@@ -20,6 +20,14 @@ refer to `getcomposer.org <http://getcomposer.org/>`_.
 This library is a collection of classes and does not require a ServiceProvider
 to be configured.
 
+With Thanks
+-----------
+
+This work was inspired by an article written by
+Giulio Troccoli-Allard:
+`Using HAL in content APIs <https://troccoli.it/using-hal-in-content-api/>`_
+
+
 .. toctree::
 
   overview

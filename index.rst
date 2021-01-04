@@ -26,5 +26,8 @@ to be configured.
   configuration
   links
   embedded
+  collections
+  custom-hydrator
+  manual-resource
 
 .. include:: footer.rst

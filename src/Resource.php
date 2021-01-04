@@ -43,9 +43,9 @@ class Resource
         return $this;
     }
 
-    public function addLink($ref, $href): self
+    public function addLink($ref, $def): self
     {
-        $this->links[$ref] = $href;
+        $this->links[$ref] = $def;
 
         return $this;
     }
@@ -88,7 +88,7 @@ class Resource
         $data = [];
 
         foreach ($this->links as $ref => $def) {
-            if (is_array($href)) {
+            if (is_array($def)) {
                 $data['_links'][$ref] = $def;
             } else {
                 $data['_links'][$ref]['href'] = $def;

@@ -22,20 +22,57 @@ of data belongs in the ``_embedded`` section.
 **THE RIGHT WAY**::
 
   {
+    "_links": {
+      "self": {
+        "href": "https://myapi/name/1"
+      }
+    }
     "name": "example",
     "_embedded": {
       "roles": [
-        "guest",
-        "user",
-        "admin"
+          {
+            "_links": {
+              "self": {
+                "href": "https://myapi/role/1"
+              }
+            },
+            "id": 1,
+            "roleId": "guest"
+          },
+          {
+            "_links": {
+              "self": {
+                "href": "https://myapi/role/2"
+              }
+            },
+            "id": 2,
+            "roleId": "user"
+          },
+          {
+            "_links": {
+              "self": {
+                "href": "https://myapi/role/3"
+              }
+            },
+            "id": 3,
+            "roleId": "admin"
+          },
       ],
       "address": {
+        "_links": {
+          "self": {
+            "href": "https://myapi/address/5"
+          }
+        },
+        "id": 5,
         "zipcode": "12345"
       }
     }
   }
 
 Now you know.  The author hopes this lesson has not come too late for you.
+Your front end consumers of your API will love you for it.  They are your
+client so treat them like a good client.
 
 Embedding Resources
 -------------------

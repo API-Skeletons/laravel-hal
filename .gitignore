@@ -2,3 +2,5 @@ vendor
 .phpunit.cache
 coverage
 composer.lock
+.vscode
+.phpcs-cache

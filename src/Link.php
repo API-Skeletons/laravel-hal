@@ -1,14 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiSkeletons\Laravel\HAL;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
+use function array_keys;
+use function in_array;
+use function is_array;
 
 class Link
 {
-    // See https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
-    private $properties = [
+    /**
+     * See https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
+     *
+     * @var array<string> $properties
+     */
+    private array $properties = [
         'href',
         'templated',
         'type',
@@ -20,32 +27,37 @@ class Link
         'curies',
     ];
 
-    protected $reference;
-    protected $definition;
+    protected string $reference;
 
-    public function __construct($reference, $definition)
+    /** @var array<mixed> $definition */
+    protected array $definition;
+
+    /** @param mixed $definition */
+    public function __construct(string $reference, $definition)
     {
         $this->setReference($reference);
         $this->setDefinition($definition);
     }
 
-    public function getReference()
+    public function getReference(): string
     {
         return $this->reference;
     }
 
-    protected function setReference($reference): self
+    protected function setReference(string $reference): self
     {
         $this->reference = $reference;
 
         return $this;
     }
 
+    /** @return mixed */
     public function getDefinition()
     {
         return $this->definition;
     }
 
+    /** @param mixed $definition */
     protected function setDefinition($definition): self
     {
         if (! is_array($definition)) {
@@ -60,7 +72,7 @@ class Link
 
         foreach ($definition as $property => $value) {
             if ($this->getReference() !== 'curies' && ! in_array($property, $this->properties)) {
-                throw new Exception\InvalidProperty("'$property' is an invalid property name");
+                throw new Exception\InvalidProperty("'" . $property . "' is an invalid property name");
             }
 
             if ($this->getReference() !== 'curies' && is_array($value)) {
@@ -74,14 +86,18 @@ class Link
 
                 foreach ($value as $curieProperty => $curieValue) {
                     if (! in_array($curieProperty, $this->properties)) {
-                        throw new Exception\InvalidProperty("curies property '$curieProperty' in an invalid property name");
+                        throw new Exception\InvalidProperty(
+                            "curies property '" . $curieProperty . "' in an invalid property name"
+                        );
                     }
                 }
             }
 
-            if ($property === 'templated' && $value !== true) {
-                $definition[$property] = false;
+            if ($property !== 'templated' || $value === true) {
+                continue;
             }
+
+            $definition[$property] = false;
         }
 
         $this->definition = $definition;

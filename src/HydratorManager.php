@@ -1,17 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiSkeletons\Laravel\HAL;
 
 use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
-use ApiSkeletons\Laravel\HAL\Resource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class AbstractHydratorManager implements HydratorManagerContract
-{
-    protected $classHydrators = [];
+use function collect;
+use function get_class;
+use function is_object;
 
-    public function paginate($description, LengthAwarePaginator $paginator)
+abstract class HydratorManager implements HydratorManagerContract
+{
+    /** @var array<string> */
+    protected array $classHydrators = [];
+
+    public function paginate(string $description, LengthAwarePaginator $paginator): Resource
     {
         $resource = (new Resource())->setHydratorManager($this);
         $resource->addEmbeddedResources($description, $paginator->getCollection());
@@ -29,6 +35,7 @@ class AbstractHydratorManager implements HydratorManagerContract
         if ($paginator->currentPage() !== $paginator->lastPage()) {
             $resource->addLink('next', $paginator->nextPageUrl());
         }
+
         if (! $paginator->onFirstPage()) {
             $resource->addLink('prev', $paginator->previousPageUrl());
         }
@@ -36,23 +43,22 @@ class AbstractHydratorManager implements HydratorManagerContract
         return $resource;
     }
 
+    /** @param mixed $value */
     public function canExtract($value): bool
     {
         if (! is_object($value)) {
             return false;
         }
 
-        if (! in_array(get_class($value), array_keys($this->classHydrators))) {
-            return false;
-        }
-
-        return true;
+        return isset($this->classHydrators[get_class($value)]);
     }
 
     /**
+     * @param mixed $class
+     *
      * @return Resource|Collection
      */
-    public function extract($class, $overrideHydrator = null)
+    public function extract($class, ?string $overrideHydrator = null)
     {
         if (! $class) {
             return (new Resource())->setHydratorManager($this);
@@ -72,17 +78,18 @@ class AbstractHydratorManager implements HydratorManagerContract
             throw new Exception\NoHydrator(get_class($class));
         }
 
-        $extractorClass = ($overrideHydrator) ?: $this->classHydrators[get_class($class)];
+        $extractorClass = $overrideHydrator ?: $this->classHydrators[get_class($class)];
 
         return (new $extractorClass())->setHydratorManager($this)->extract($class);
     }
 
     /**
      * Return an empty resource or use supplied state
+     *
+     * @param array<mixed> $state
      */
-    public function resource($state = null): Resource
+    public function resource(?array $state = null): Resource
     {
-        return $this->extract(null)
-            ->setState($state);
+        return $this->extract(null)->setState($state);
     }
 }

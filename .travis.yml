@@ -34,6 +34,16 @@ matrix:
       env:
         - DEPS=latest
 
+    - php: 8.0
+      env:
+        - DEPS=lowest
+    - php: 8.0
+      env:
+        - DEPS=locked
+    - php: 8.0
+      env:
+        - DEPS=latest
+
 before_install:
   - if [[ $EXECUTE_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
   - composer self-update

@@ -14,7 +14,7 @@ a consistent and easy way to add HATEOAS - Hypertext As The Engine
 Of Application State - to your API.  This library makes 
 composing HAL responses easy including embedded data.
 
-This is a direct implementation of `https://tools.ietf.org/html/draft-kelly-json-hal-08 <https://tools.ietf.org/html/draft-kelly-json-hal-08>`_
+This is a direct implementation of[https://tools.ietf.org/html/draft-kelly-json-hal-08](https://tools.ietf.org/html/draft-kelly-json-hal-08)
 
 
 ## [Read The Documentation](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/index.html)

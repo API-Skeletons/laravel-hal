@@ -10,6 +10,7 @@ use ApiSkeletonsTest\Laravel\HAL\Model\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function count;
 

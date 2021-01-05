@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ApiSkeletonsTest\Laravel\HAL\Hydrator;
 
-use ApiSkeletons\Laravel\HAL\AbstractHydrator;
+use ApiSkeletons\Laravel\HAL\Hydrator;
 use ApiSkeletons\Laravel\HAL\Resource;
 
-final class UserHydrator extends AbstractHydrator
+final class UserHydrator extends Hydrator
 {
     /** {@inheritdoc} */
     public function extract($class): Resource

@@ -9,7 +9,7 @@ use ApiSkeletons\Laravel\HAL\Resource;
 interface HydratorManagerContract
 {
     /** @param mixed $value */
-    public function canExtract($value): void;
+    public function canExtract($value): bool;
 
     /**
      * @param mixed $class

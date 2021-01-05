@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ApiSkeletonsTest\Laravel\HAL;
 
-use ApiSkeletons\Laravel\HAL\Exception\UnsafeObject;
 use ApiSkeletonsTest\Laravel\HAL\Model\User;
+use DateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
@@ -28,16 +28,6 @@ final class ResourceTest extends TestCase
         $resource->setState(['date' => new Carbon(new DateTime('2020-01-04 09:45:00'))]);
 
         $this->assertEquals('2020-01-04T09:45:00.000000Z', $resource->toArray()['date']);
-    }
-
-    public function testSetStateWithObject(): void
-    {
-        $this->expectException(UnsafeObject::class);
-        $this->expectExceptionMessage("Unsafe Object: 'stdClass'");
-
-        $hydratorManager = new HydratorManager();
-        $resource        = $hydratorManager->resource();
-        $resource->setState(new stdClass());
     }
 
     public function testEmbeddedResource(): void

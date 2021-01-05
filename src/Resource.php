@@ -35,7 +35,7 @@ class Resource
     }
 
     /** @param array<any> $data */
-    public function setState(array $data): self
+    public function setState(?array $data): self
     {
         if (! $data) {
             return $this;

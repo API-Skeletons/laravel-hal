@@ -8,14 +8,12 @@ Hypertext Application Language for Laravel
 [![License](https://poser.pugx.org/api-skeletons/laravel-hal/license)](//packagist.org/packages/api-skeletons/laravel-hal)
 
 
+HAL - Hypertext Application Language is a JSON dialect which gives
+a consistent and easy way to add HATEOAS - Hypertext As The Engine
+Of Application State - to your API.  This library makes 
+composing HAL responses easy including embedded data.
 
-
-
-HAL - Hypertext Application Language is a simple format which gives
-a consistent and easy way to add HATEOAS to your API.
-
-See the HAL Specification:
-[http://stateless.co/hal_specification.html](http://stateless.co/hal_specification.html)
+This is a direct implementation of `https://tools.ietf.org/html/draft-kelly-json-hal-08 <https://tools.ietf.org/html/draft-kelly-json-hal-08>`_
 
 
 ## [Read The Documentation](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/index.html)
@@ -36,6 +34,11 @@ A brief output example
   "_embedded":{
     "roles":[
       {
+        "_links":{
+          "self":{
+            "href":"https://apiskeletons.com/role/1"
+          }
+        },
         "id":1,
         "name":"admin",
         "guard_name":"web",

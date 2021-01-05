@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-use ApiSkeletons\Laravel\HAL\Link;
+namespace ApiSkeletonsTest\Laravel\HAL;
+
 use ApiSkeletons\Laravel\HAL\Exception\InvalidProperty;
+use ApiSkeletons\Laravel\HAL\Link;
 use PHPUnit\Framework\TestCase;
 
 final class LinkTest extends TestCase
@@ -61,12 +63,15 @@ final class LinkTest extends TestCase
         $this->expectException(InvalidProperty::class);
         $this->expectExceptionMessage('Properties cannot be arrays');
 
-        $link = new Link('test', ['href' => 'https://test/test', 'title' => array('test', 'test2')]);
+        $link = new Link('test', ['href' => 'https://test/test', 'title' => ['test', 'test2']]);
     }
 
     public function testCuries(): void
     {
-        $link = new Link('curies', [['href' => 'https://test/curie1', 'title' => 'Curie 1'], ['href' => 'https://test/curie2', 'title' => 'Curie 2']]);
+        $link = new Link('curies', [
+            ['href' => 'https://test/curie1', 'title' => 'Curie 1'],
+            ['href' => 'https://test/curie2', 'title' => 'Curie 2'],
+        ]);
 
         $this->assertEquals('curies', $link->getReference());
     }
@@ -76,7 +81,10 @@ final class LinkTest extends TestCase
         $this->expectException(InvalidProperty::class);
         $this->expectExceptionMessage("curies property 'invalid' in an invalid property name");
 
-        $link = new Link('curies', [['href' => 'https://test/curie1', 'invalid' => 'Curie 1'], ['href' => 'https://test/curie2', 'title' => 'Curie 2']]);
+        $link = new Link('curies', [
+            ['href' => 'https://test/curie1', 'invalid' => 'Curie 1'],
+            ['href' => 'https://test/curie2', 'title' => 'Curie 2'],
+        ]);
 
         $this->assertEquals('curies', $link->getReference());
     }
@@ -84,7 +92,7 @@ final class LinkTest extends TestCase
     public function testCuriesMustBeArray(): void
     {
         $this->expectException(InvalidProperty::class);
-        $this->expectExceptionMessage("curies must be an array");
+        $this->expectExceptionMessage('curies must be an array');
 
         $link = new Link('curies', ['href' => 'https://test/curie1', 'invalid' => 'Curie 1']);
 

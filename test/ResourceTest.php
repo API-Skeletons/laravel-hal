@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+namespace ApiSkeletonsTest\Laravel\HAL;
+
 use ApiSkeletons\Laravel\HAL\Exception\UnsafeObject;
-use ApiSkeletons\Laravel\HAL\Resource;
-use ApiSkeletonsTest\Laravel\HAL\HydratorManager;
 use ApiSkeletonsTest\Laravel\HAL\Model\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -15,7 +15,7 @@ final class ResourceTest extends TestCase
     public function testSetState(): void
     {
         $hydratorManager = new HydratorManager();
-        $resource = $hydratorManager->resource();
+        $resource        = $hydratorManager->resource();
         $resource->setState(['test' => 'state']);
 
         $this->assertEquals('state', $resource->toArray()['test']);
@@ -24,7 +24,7 @@ final class ResourceTest extends TestCase
     public function testSetStateWithCarbonObject(): void
     {
         $hydratorManager = new HydratorManager();
-        $resource = $hydratorManager->resource();
+        $resource        = $hydratorManager->resource();
         $resource->setState(['date' => new Carbon(new DateTime('2020-01-04 09:45:00'))]);
 
         $this->assertEquals('2020-01-04T09:45:00.000000Z', $resource->toArray()['date']);
@@ -36,15 +36,15 @@ final class ResourceTest extends TestCase
         $this->expectExceptionMessage("Unsafe Object: 'stdClass'");
 
         $hydratorManager = new HydratorManager();
-        $resource = $hydratorManager->resource();
+        $resource        = $hydratorManager->resource();
         $resource->setState(new stdClass());
     }
 
     public function testEmbeddedResource(): void
     {
         $hydratorManager = new HydratorManager();
-        $resource1 = $hydratorManager->resource();
-        $resource2 = $hydratorManager->resource();
+        $resource1       = $hydratorManager->resource();
+        $resource2       = $hydratorManager->resource();
         $resource2->setState(['test' => 'testing']);
 
         $resource1->addEmbeddedResource('embedded', $resource2);
@@ -55,34 +55,39 @@ final class ResourceTest extends TestCase
     public function testEmbeddedResources(): void
     {
         $hydratorManager = new HydratorManager();
-        $resource = $hydratorManager->resource();
+        $resource        = $hydratorManager->resource();
 
         // Test all three possible types pushed to addEmbeddedResources
         $collection = new Collection();
-        $user = new User();
-        $user->id = 1;
-        $user->name = 'Test';
+        // Hydratable class
+        $user        = new User();
+        $user->id    = 1;
+        $user->name  = 'Test';
         $user->email = 'test@testing.net';
         $collection->push($user);
 
-        $userResource = $hydratorManager->extract($user);
+        // Resource
+        $user2        = new User();
+        $user2->id    = 2;
+        $user2->name  = 'Test 2';
+        $user2->email = 'test2@testing.net';
+        $userResource = $hydratorManager->extract($user2);
         $collection->push($userResource);
 
-        $collection->push([
-            'adhoc' => 'array',
-        ]);
+        // Raw Array
+        $collection->push(['adhoc' => 'array']);
 
         $resource->addEmbeddedResources('resources', $collection);
 
         $this->assertEquals('Test', $resource->toArray()['_embedded']['resources'][0]['name']);
-        $this->assertEquals('Test', $resource->toArray()['_embedded']['resources'][1]['name']);
+        $this->assertEquals('Test 2', $resource->toArray()['_embedded']['resources'][1]['name']);
         $this->assertEquals('array', $resource->toArray()['_embedded']['resources'][2]['adhoc']);
     }
 
     public function testToEmptyArray(): void
     {
         $hydratorManager = new HydratorManager();
-        $resource1 = $hydratorManager->resource();
+        $resource1       = $hydratorManager->resource();
 
         $emptyArray = $resource1->toArray();
 

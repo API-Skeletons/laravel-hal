@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiSkeletonsTest\Laravel\HAL\Model;
 
-final class User 
+final class User
 {
-    public $id;
-    public $name;
-    public $email;
+    public int $id;
+    public string $name;
+    public string $email;
 }

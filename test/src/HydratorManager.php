@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ApiSkeletonsTest\Laravel\HAL;
 
-use ApiSkeletons\Laravel\HAL\AbstractHydratorManager;
+use ApiSkeletons\Laravel\HAL\HydratorManager;
 
-final class HydratorManager extends AbstractHydratorManager
+final class HydratorManager extends HydratorManager
 {
+    /** {@inheritdoc} */
     protected $classHydrators = [
-        Model\User::class => Hydrator\UserHydrator::class,       
+        Model\User::class => Hydrator\UserHydrator::class,
     ];
 }

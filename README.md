@@ -1,10 +1,11 @@
 Hypertext Application Language for Laravel
 ==========================================
 
-[![Latest Stable Version](https://poser.pugx.org/api-skeletons/laravel-hal/v)](//packagist.org/packages/api-skeletons/laravel-hal) 
-[![Total Downloads](https://poser.pugx.org/api-skeletons/laravel-hal/downloads)](//packagist.org/packages/api-skeletons/laravel-hal) 
+[![Build Status](https://travis-ci.com/API-Skeletons/laravel-hal.svg?branch=master)](https://travis-ci.com/API-Skeletons/laravel-hal)
 [![Documentation Status](https://readthedocs.org/projects/api-skeletons-laravel-hal/badge/?version=latest)](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/?badge=latest)
-[![Latest Unstable Version](https://poser.pugx.org/api-skeletons/laravel-hal/v/unstable)](//packagist.org/packages/api-skeletons/laravel-hal) 
+[![PHP Version](https://img.shields.io/badge/PHP-7.4-blue)](https://img.shields.io/badge/PHP-7.4-blue)
+[![Laravel Version](https://img.shields.io/badge/Laravel-8.0-red)](https://img.shields.io/badge/Laravel-8.0-red)
+[![Total Downloads](https://poser.pugx.org/api-skeletons/laravel-hal/downloads)](//packagist.org/packages/api-skeletons/laravel-hal) 
 [![License](https://poser.pugx.org/api-skeletons/laravel-hal/license)](//packagist.org/packages/api-skeletons/laravel-hal)
 
 

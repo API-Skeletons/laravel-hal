@@ -1,14 +1,13 @@
 Links
 =====
 
-HAL defines two specific structures:  ``_links`` and ``_embedded``.  This document
-discusses using links, self referential links, related links, and complex links.
-For pagination links see `collections <collections.html>`_.
+HAL defines two specific structures:  ``_links`` and ``_embedded``.  This
+document discusses using links, self referential links, related links, and
+complex links. For pagination links see `collections <collections.html>`_.
 
 Links are URLs to URL resources (not to be confused with a HAL resourcee
 class).  You may create any number of uniquely named links for each HAL
-Resource.  The only required link is the ``self`` link.
-
+Resource.  The only strongly-suggested link is the ``self`` link.
 
 Self Link
 ---------
@@ -46,22 +45,9 @@ arrays of objects.  For this reason you may pass an array as a second parameter 
 
   ->addLink('ea:find', ['href' => '/orders{?id}', 'templated' => true]);
 
-Or::
+The special name ``curies``, see `curie syntax <https://www.w3.org/TR/2010/NOTE-curie-20101216/>`_
+allows for arrays of link data::
 
   ->addLink('curies', [['name' => 'ea', 'href' => 'http://example.com/docs/rels/{rel}', 'templated' => true]]);
 
-Or::
- 
-  ->addLink('ea:admin', [
-      [
-          'href' => '/admins/2',
-          'title' => 'Fred',
-      ],
-      [
-          'href' => '/admins/5',
-          'title' => 'Kate',
-      ]
-  ]);
-
 .. include:: footer.rst
-

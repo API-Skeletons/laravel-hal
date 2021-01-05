@@ -11,11 +11,11 @@ Create a new class called ``HydratorManager``::
 
   namespace App\Support\ERD;
 
-  use ApiSkeletons\Laravel\HAL\AbstractHydratorManager;
+  use ApiSkeletons\Laravel\HAL\HydratorManager as HALHydratorManager;
 
-  final class HydratorManager extends AbstractHydratorManager
+  final class HydratorManager extends HALHydratorManager
   {
-      protected $classHydrators = [
+      protected array $classHydrators = [
       ];
   }
 
@@ -25,10 +25,10 @@ Now create your first hydrator::
 
   namespace App\Support\ERD\Hydrator;
 
-  use ApiSkeletons\Laravel\HAL\AbstractHydrator;
+  use ApiSkeletons\Laravel\HAL\Hydrator;
   use ApiSkeletons\Laravel\HAL\Resource;
 
-  final class UserHydrator extends AbstractHydrator
+  final class UserHydrator extends Hydrator
   {
       public function extract($class): Resource
       {
@@ -62,7 +62,7 @@ a self referential link.
 Before we can use this hydrator we must assign it to a model to hydrate from
 within the hydrator manager::
 
-  protected $classHydrators = [
+  protected array $classHydrators = [
     \App\Models\User::class => Hydrator\UserHydrator::class,
   ];
 

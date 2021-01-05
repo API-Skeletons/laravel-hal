@@ -26,8 +26,8 @@ Or::
   }
 
   return HALHydratorManager::resource()
-      ->addEmbeddedResources('users', $userCollection)
-      ;
+      ->addEmbeddedResources('users', $userCollection);
+
 Or::
 
   $userCollection = collect();

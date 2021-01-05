@@ -19,7 +19,7 @@ of data belongs in the ``_embedded`` section.
     }
   }
 
-**THE RIGHT WAY**::
+**THE HAL WAY**::
 
   {
     "_links": {

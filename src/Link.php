@@ -66,7 +66,7 @@ class Link
             return $this;
         }
 
-        if (! in_array('href', array_keys($definition)) && ! in_array('curies', array_keys($definition))) {
+        if ($this->getReference() !== 'curies' && ! in_array('href', array_keys($definition))) {
             throw new Exception\InvalidProperty("'href' is required");
         }
 

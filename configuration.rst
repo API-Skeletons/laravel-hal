@@ -50,11 +50,11 @@ Now create your first hydrator::
       }
   }
 
-There's a bit going on here.  First off we extend from the AbstractHydrator
+There's a bit going on here.  First off we extend from the abstract Hydrator
 which defines the extract() function and the return value of a Resource.
 
 A simple but effective pattern is used to map the fields we want to the model's
-data and assign that to an array.  This is the act of extraction.  But because
+properties and assign that to an array.  This is the act of extraction.  But because
 this is a HAL hydrator we need to return a Resource.   So, using the hydrator
 manager property of the abstract hydrator we assign the array of data and add
 a self referential link.

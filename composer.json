@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
-        "laravel/framework": "*"
+        "php": "^7.4 || ^8.0",
+        "laravel/framework": "^5.0 || ^6.0 || ^7.0 || ^8.0"
     },
     "autoload": {
         "psr-4": {

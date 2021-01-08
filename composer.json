@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "laravel/framework": "^5.7",
+        "laravel/framework": "^5.7 || ^6.0 || ^7.0 || ^8.0",
         "nesbot/carbon": "^2.0",
         "kylekatarnls/update-helper": "^1.2.1"
     },

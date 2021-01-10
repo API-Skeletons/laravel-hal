@@ -2,6 +2,7 @@ Hypertext Application Language for Laravel
 ==========================================
 
 [![Build Status](https://travis-ci.com/API-Skeletons/laravel-hal.svg?branch=master)](https://travis-ci.com/API-Skeletons/laravel-hal)
+[![Coverage Status](https://coveralls.io/repos/github/API-Skeletons/laravel-hal/badge.svg?branch=master)](https://coveralls.io/github/API-Skeletons/laravel-hal?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/api-skeletons-laravel-hal/badge/?version=latest)](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/?badge=latest)
 [![PHP Version](https://img.shields.io/badge/PHP-7.3%20to%208.0-blue)](https://img.shields.io/badge/PHP-7.3%20to%208.0-blue)
 [![Laravel Version](https://img.shields.io/badge/Laravel-5.7%20to%208.0-red)](https://img.shields.io/badge/Laravel-5.7%20to%208.0-red)

@@ -13,18 +13,26 @@ env:
 matrix:
   fast_finish: true
   include:
+    - php: 7.3
+      env:
+        - DEPS=lowest
+    - php: 7.3
+      env:
+        - EXECUTE_COVERAGE=true
+        - EXECUTE_CS_CHECK=true
+        - DEPS=locked
+    - php: 7.3
+      env:
+        - DEPS=latest
     - php: 7.4
       env:
         - DEPS=lowest
     - php: 7.4
       env:
-        - EXECUTE_COVERAGE=true
-        - EXECUTE_CS_CHECK=true
         - DEPS=locked
     - php: 7.4
       env:
         - DEPS=latest
-
     - php: 8.0
       env:
         - DEPS=lowest

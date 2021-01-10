@@ -15,7 +15,7 @@ use function is_object;
 abstract class HydratorManager implements HydratorManagerContract
 {
     /** @var array<string> */
-    protected array $classHydrators = [];
+    protected $classHydrators = [];
 
     public function paginate(string $description, LengthAwarePaginator $paginator): Resource
     {

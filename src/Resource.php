@@ -14,18 +14,19 @@ use function is_array;
 class Resource
 {
     /** @var array<any> */
-    protected array $state = [];
+    protected $state = [];
 
     /** @var array<Link> */
-    protected array $links = [];
+    protected $links = [];
 
     /** @var array<any> */
-    protected array $embedded = [];
+    protected $embedded = [];
 
     /** @var array<any> */
-    protected array $paginationData = [];
+    protected $paginationData = [];
 
-    private Contracts\HydratorManagerContract $hydratorManager;
+    /** @var Contracts\HydratorManagerContract */
+    private $hydratorManager;
 
     public function setHydratorManager(Contracts\HydratorManagerContract $hydratorManager): self
     {

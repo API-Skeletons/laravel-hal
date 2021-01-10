@@ -18,6 +18,7 @@ matrix:
         - DEPS=lowest
     - php: 7.3
       env:
+        - XDEBUG_MODE=coverage
         - EXECUTE_COVERAGE=true
         - EXECUTE_CS_CHECK=true
         - DEPS=locked

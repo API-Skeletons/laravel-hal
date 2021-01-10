@@ -6,7 +6,12 @@ namespace ApiSkeletonsTest\Laravel\HAL\Model;
 
 final class User
 {
-    public int $id;
-    public string $name;
-    public string $email;
+    /** @var int */
+    public $id;
+
+    /** @var string */
+    public $name;
+
+    /** @var string */
+    public $email;
 }

@@ -27,7 +27,7 @@ A brief output example
 {
   "_links":{
     "self":{
-      "href":"https://apiskeletons.com/api/me"
+      "href":"https://apiskeletons.com/me"
     }
   },
   "id":1,

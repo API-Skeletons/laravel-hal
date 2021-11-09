@@ -1,5 +1,5 @@
 Specifying a Custom Hydrator For Extracting
-============================================
+===========================================
 
 There are instances where a model may not exist for data such as *pivot* data.
 There are very good reasons for including pivot data with a HAL response but

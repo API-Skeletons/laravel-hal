@@ -17,7 +17,9 @@ the URL to the current resource.  This is not just the current requested url:
 in a collection of resources each resource ``self`` link is a link to that
 individual resource.
 
-Every hydrator should assign a ``self`` link::
+Every hydrator should assign a ``self`` link
+
+.. code:: php
 
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $class->id));
@@ -29,7 +31,9 @@ If you are extracting a class with embedded / related data but you do not want
 to include the embedded class with the HAL response you may choose to just
 include a link to the API data instead.  For an example consider a
 User > Address 1:1 relationship.  When hydrating the User it is not necessary
-to return the Address every time so just include a link to the data::
+to return the Address every time so just include a link to the data
+
+.. code:: php
 
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $class->id))
@@ -38,10 +42,12 @@ to return the Address every time so just include a link to the data::
 Complex Link
 ------------
 
-By default, when you add a new link, the link is added to the href property of the
-link.  However the HAL specification allows for multiple properties and even
-arrays of objects.  For this reason you may pass an array as a second parameter to
-``addLink``.  The array will be rendered exaclty as it was assigned::
+By default, when you add a new link, the link is added to the href property of
+the link.  However the HAL specification allows for multiple properties and even
+arrays of objects.  For this reason you may pass an array as a second parameter
+to ``addLink``.  The array will be rendered exaclty as it was assigned
+
+.. code:: php
 
   ->addLink('ea:find', ['href' => '/orders{?id}', 'templated' => true]);
 

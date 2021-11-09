@@ -4,9 +4,10 @@ Overview
 Hydrators
 ---------
 
-Hydrators are not a common term in Laravel.
-Hydrators are responsible for moving data into and out of an object.  For their
-use in this library hydrators are used for extraction only and not hydration.
+Hydrators are not a common programming pattern in Laravel.
+Hydrators are responsible for moving data into (hydration) and out of
+(extraction) an object.  For their use in this library hydrators are used for
+extraction only and not hydration.
 
 Hydrator Manager
 ----------------
@@ -18,10 +19,10 @@ strongly recommended you stick to the HAL specification.
 
 The hydrator manager is used to extract a class using a mapped hydrator.
 
-Note it is possible to have two fully separate hydrator managers.
+.. note:: It is possible to have two fully separate hydrator managers.
 
 ApiSkeletons\\Laravel\\HAL\\Resource
----------------------------------
+------------------------------------
 As you extract data from classes using a hydrator you will be creating HAL
 Resources.  A Resource object is the common object used to compose a HAL
 response.  Resource objects hold the object data (the state), links, and

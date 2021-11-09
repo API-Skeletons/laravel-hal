@@ -79,7 +79,9 @@ Embedding Resources
 
 You may embed as many resources as you see fit.  Embedded resources should have
 a relationship with the parent data.  Below a related class with its own
-hydrator is assigned as a resource to the currently extracting class::
+hydrator is assigned as a resource to the currently extracting class
+
+.. code:: php
 
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $data['id']))

@@ -6,16 +6,22 @@ Collections
 
 You may assign a collection of resources to the ``_embedded`` section of any
 resource.  And you can directly assign a collection of mapped [or unmapped!]
-models to a resource as a collection::
+models to a resource as a collection
+
+.. code:: php
 
   HALHydratorManager::resource()
-    ->addEmbeddedResources('users', HALHydratorManager::extract($model-users))
-Or::
+    ->addEmbeddedResources('users', HALHydratorManager::extract($model->users))
+Or
+
+.. code:: php
 
   HALHydratorManager::resource()
-    ->addEmbeddedResources('users', HALHydratorManager::extract($model-users, CustomHydrator::class))
+    ->addEmbeddedResources('users', HALHydratorManager::extract($model->users, CustomHydrator::class))
 
-Or::
+Or
+
+.. code:: php
 
   $userCollection = collect();
 
@@ -28,7 +34,9 @@ Or::
   return HALHydratorManager::resource()
       ->addEmbeddedResources('users', $userCollection);
 
-Or::
+Or
+
+.. code:: php
 
   $userCollection = collect();
 

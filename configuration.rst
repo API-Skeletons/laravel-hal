@@ -2,7 +2,7 @@ Configuration
 =============
 
 Create a new directory to hold your hydrators and hydrator manager.  These docs
-recommend ``~/app/HAL` and this path will be used throughout this
+recommend ``~/app/HAL`` and this path will be used throughout this
 documentation.
 
 Create a new class called ``HydratorManager``

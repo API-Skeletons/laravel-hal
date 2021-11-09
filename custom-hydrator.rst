@@ -11,7 +11,9 @@ it has two big drawbacks:
    in the hydrator manager.
 
 For these types of scenarios there is still a way to hydrate the data to HAL
-by using custom hydrators::
+by using custom hydrators
+
+.. code:: php
 
   $hal = HALHydratorManager::extract($pivot, PivotHydrator::class)->toArray();
 

@@ -32,11 +32,13 @@ use ApiSkeletons\Laravel\HAL\HydratorManager as HALHydratorManager;
 
 final class HydratorManager extends HALHydratorManager
 {
-    protected array $classHydrators = [
-      \App\Models\Role::class => \App\HAL\Hydrator\RoleHydrator::class,
-      \App\Models\User::class => \App\HAL\Hydrator\UserHydrator::class,
-    ];
-}
+    public function __construct() 
+    {
+        $this->classHydrators = [
+            \App\Models\Role::class => \App\HAL\Hydrator\RoleHydrator::class,
+            \App\Models\User::class => \App\HAL\Hydrator\UserHydrator::class,
+        ];
+    }
 ```
 
 Create a hydrator for the User model
@@ -83,7 +85,7 @@ Extract the User model from a controller
 ```php
 public function fetch(User $user, Request $request)
 {
-    $hydratorManger = new \App\HAL\HydratorManager();
+    $hydratorManager = new \App\HAL\HydratorManager();
     return $hydratorManager->extract($user)->toArray();
 }
 ```

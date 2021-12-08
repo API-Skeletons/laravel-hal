@@ -70,15 +70,17 @@ class Resource
         return $this;
     }
 
-    public function addEmbeddedResources(string $ref, Collection $collection): self
+    public function addEmbeddedResources(string $ref, Collection $collection, string $hydrator = null): self
     {
         if (! isset($this->embedded[$ref])) {
             $this->embedded[$ref] = [];
         }
 
-        $collection->each(function ($item) use ($ref): void {
+        $collection->each(function ($item) use ($ref, $hydrator): void {
             if ($item instanceof Resource) {
                 $this->embedded[$ref][] = $item;
+            } elseif ($hydrator) {
+                $this->embedded[$ref][] = $this->hydratorManager->extract($item, $hydrator);
             } elseif ($this->hydratorManager->canExtract($item)) {
                 $this->embedded[$ref][] = $this->hydratorManager->extract($item);
             } else {

@@ -74,7 +74,7 @@ final class UserHydrator extends Hydrator
         return $this->hydratorManager->resource($data)
             ->addLink('self', route('hal/user::fetch', $user->id))
             // Add roles resource collection (RoleHydrator not shown)
-            ->addEmbeddedResource('roles', $this->hydratorManager->extract($user->roles))
+            ->addEmbeddedResources('roles', $this->hydratorManager->extract($user->roles))
             ;
     }
 }

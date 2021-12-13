@@ -2,10 +2,10 @@ Links
 =====
 
 HAL defines two specific structures:  ``_links`` and ``_embedded``.  This
-document discusses using links, self referential links, related links, and
+page discusses using links, self referential links, related links, and
 complex links. For pagination links see `collections <collections.html>`_.
 
-Links are URLs to URL resources (not to be confused with a HAL resourcee
+Links are URLs to URL resources (not to be confused with a HAL resource
 class).  You may create any number of uniquely named links for each HAL
 Resource.  The only strongly-suggested link is the ``self`` link.
 
@@ -45,7 +45,9 @@ Complex Link
 By default, when you add a new link, the link is added to the href property of
 the link.  However the HAL specification allows for multiple properties and even
 arrays of objects.  For this reason you may pass an array as a second parameter
-to ``addLink``.  The array will be rendered exaclty as it was assigned
+to ``addLink``.  The array will be rendered exaclty as it was assigned.
+
+.. note:: This is included for completeness and it is rare to use this feature.
 
 .. code:: php
 

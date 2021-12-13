@@ -56,7 +56,7 @@ Pagination
 
 HAL supports pagination using the ``_links`` section, ``_embedded`` section,
 and includes pagination info in the state.  Automatic HAL pagination
-is supported for the ``use Illuminate\Pagination\LengthAwarePaginator``
+is supported for the ``Illuminate\Pagination\LengthAwarePaginator``
 class.  This paginator is created from a controller
 
 .. code:: php

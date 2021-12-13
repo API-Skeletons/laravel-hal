@@ -70,9 +70,6 @@ of data belongs in the ``_embedded`` section.
     }
   }
 
-Now you know.  The author hopes this lesson has not come too late for you.
-Your front end consumers of your API will love you for it.  They are your
-client so treat them like a good client.
 
 Embedding Resources
 -------------------
@@ -86,5 +83,19 @@ hydrator is assigned as a resource to the currently extracting class
   return $this->hydratorManager->resource($data)
       ->addLink('self', route('routeName', $data['id']))
       ->addEmbeddedResource('example', $this->hydratorManager->extract($class->example));
+
+You may embed an array of objects under a single resource:
+
+.. code:: php
+
+  return $this->hydratorManager->resource($data)
+      ->addLink('self', route('routeName', $data['id']))
+      ->addEmbeddedResources('example', $class->roles);
+
+For each of these `addEmbeddedResource` functions you may include a third parameter
+to the hydrator to extract the resource with.  This is useful when using proxy objects
+(such as Doctrine) or when you're using alternative hydrators such as a controller
+action which returns data in a specific format, such as removing all the links from the
+hydrator responses.
 
 .. include:: footer.rst

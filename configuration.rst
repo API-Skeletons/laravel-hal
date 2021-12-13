@@ -15,8 +15,6 @@ Create a new class called ``HydratorManager``
 
   final class HydratorManager extends HALHydratorManager
   {
-      protected array $classHydrators = [
-      ];
   }
 
 Now create your first hydrator
@@ -69,11 +67,14 @@ within the hydrator manager
 
 .. code:: php
 
-  protected array $classHydrators = [
-    \App\Models\User::class => \App\HAL\Hydrator\UserHydrator::class,
-  ];
+  public function __construct() 
+  {
+      $this->classHydrators = [
+          \App\Models\User::class => \App\HAL\Hydrator\UserHydrator::class,
+      ];
+  }
 
-Having finished these steps we're now ready to return a HAL response for a
+Having finished these steps, next return a HAL response for a
 User model from a controller
 
 .. code:: php

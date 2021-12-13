@@ -1,5 +1,4 @@
-Hypertext Application Language for Laravel
-==========================================
+# Hypertext Application Language for Laravel
 
 [![Build Status](https://travis-ci.com/API-Skeletons/laravel-hal.svg?branch=master)](https://travis-ci.com/API-Skeletons/laravel-hal)
 [![Coverage Status](https://coveralls.io/repos/github/API-Skeletons/laravel-hal/badge.svg?branch=master)](https://coveralls.io/github/API-Skeletons/laravel-hal?branch=master)
@@ -15,15 +14,28 @@ a consistent and easy way to add HATEOAS - Hypertext As The Engine
 Of Application State - to your API.  This library makes
 composing HAL responses easy including embedded data.
 
+This library consists of a Hydrator Manager and you will write hydrators
+for the classes you want to serve as HAL.  Central to this library is a 
+Resource object on which HAL resources are attached.
+
+Although this library is for Laravel, it is **not** specific to Eloquent.
+This same library can be used with any datasource to compose a HAL response.
+
 This is a direct implementation of [https://tools.ietf.org/html/draft-kelly-json-hal-08](https://tools.ietf.org/html/draft-kelly-json-hal-08)
 
 
-## [Read The Documentation](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/index.html)
+### [Read The Documentation](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/index.html)
 
 
-A brief example
+## Quick Start
 
-Create a hydrator manager
+* Create a hydrator manager
+* Create a hydrator for the User class
+* Create a hydrator for the Role class
+* Compose these into a HAL resource and return HAL from a controller action
+
+
+### Create a hydrator manager
 
 ```php
 namespace App\HAL;
@@ -41,7 +53,7 @@ final class HydratorManager extends HALHydratorManager
     }
 ```
 
-Create a hydrator for the User model
+### Create a hydrator for the User class
 
 ```php
 namespace App\HAL\Hydrator;
@@ -52,10 +64,7 @@ use App\Models\User;
 
 final class UserHydrator extends Hydrator
 {
-    /**
-     * The extract function will extract a model into a HAL Resource object
-     */
-    public function extract(User $user): Resource
+    public function extract($class): Resource
     {
         $data = [];
 
@@ -65,22 +74,59 @@ final class UserHydrator extends Hydrator
             'email',
         ];
 
-        // Extract model fields into an array to be used as the resource
+        // Extract fields into an array to be used by the resource
         foreach ($fields as $field) {
-            $data[$field] = $user->$field;
+            $data[$field] = $class->$field;
         }
 
-        // Create a new resource and assign self link
+        // Create a new resource and assign self link and extract the
+        // roles into an embedded resource.  Note `addEmbeddedResources`
+        // is used for arrays and `addEmbeddedResource` is used for classes
         return $this->hydratorManager->resource($data)
-            ->addLink('self', route('hal/user::fetch', $user->id))
-            // Add roles resource collection (RoleHydrator not shown)
-            ->addEmbeddedResources('roles', $this->hydratorManager->extract($user->roles))
+            ->addLink('self', route('hal/user::fetch', $class->id))
+            ->addEmbeddedResources('roles', $this->hydratorManager->extract($class->roles))
             ;
     }
 }
 ```
 
-Extract the User model from a controller
+### Create a hydrator for the Role class
+
+```php
+namespace App\HAL\Hydrator;
+
+use ApiSkeletons\Laravel\HAL\Hydrator;
+use ApiSkeletons\Laravel\HAL\Resource;
+use App\Models\Role;
+
+final class RoleHydrator extends Hydrator
+{
+    public function extract($class): Resource
+    {
+        $data = [];
+
+        $fields = [
+            'id',
+            'name',
+            'guard_name',
+        ];
+
+        // Extract fields into an array to be used by the resource
+        foreach ($fields as $field) {
+            $data[$field] = $class->$field;
+        }
+
+        // Create a new resource and assign self link and extract the
+        // roles into an embedded resource.  Note `addEmbeddedResources`
+        // is used for arrays and `addEmbeddedResource` is used for classes
+        return $this->hydratorManager->resource($data)
+            ->addLink('self', route('hal/role::fetch', $class->id))
+            ;
+    }
+}
+```
+
+### Compose these into a HAL resource and return HAL from a controller action
 
 ```php
 public function fetch(User $user, Request $request)
@@ -90,7 +136,7 @@ public function fetch(User $user, Request $request)
 }
 ```
 
-And the Hypertext Application Language output will be
+### HAL Response 
 
 ```json
 {

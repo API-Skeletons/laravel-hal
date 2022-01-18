@@ -81,7 +81,7 @@ User model from a controller
 
   public function fetch(User $user, Request $request)
   {
-      $hydratorManger = new HydratorManager();
+      $hydratorManager = new HydratorManager();
       return $hydratorManager->extract($user)->toArray();
   }
 

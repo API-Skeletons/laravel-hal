@@ -23,8 +23,8 @@ to be configured.
 Versions
 --------
 
-For PHP 7.0 - 7.3 use version 1.0.  For PHP 7.4+ and Laravel 8.0 use the latest
-version.
+For PHP 7.0 - 7.3 use version 1.0.  For PHP 7.4+ and Laravel 8.0 use up to 3.0.4.
+For PHP 8.0+ and Laravel 8.0+ use the latest version.
 
 With Thanks
 -----------

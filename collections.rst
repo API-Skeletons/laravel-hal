@@ -68,6 +68,10 @@ class.  This paginator is created from a controller
         return HALHydratorManager::paginate('data', $data)->toArray();
     }
 
+For the ``paginate`` function  you may include a third parameter to the hydrator 
+to extract the resource with. This is useful when using proxy objects 
+(such as Doctrine) or when you're using alternative hydrators.
+
 The above example uses the `searchable <https://github.com/jedrzej/searchable>`_
 and `sortable <https://github.com/jedrzej/sortable>`_ libraries to turn an api
 endpoint into a rich database queryable and sortable resources.  This

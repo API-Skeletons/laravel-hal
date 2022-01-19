@@ -15,7 +15,7 @@ class Link
      *
      * @var array<string> $properties
      */
-    private $properties = [
+    private array $properties = [
         'href',
         'templated',
         'type',
@@ -27,11 +27,10 @@ class Link
         'curies',
     ];
 
-    /** @var string */
-    protected $reference;
+    protected string $reference;
 
     /** @var array<mixed> $definition */
-    protected $definition;
+    protected array $definition;
 
     /** @param mixed $definition */
     public function __construct(string $reference, $definition)

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiSkeletons\Laravel\HAL\Contracts;
 
 use ApiSkeletons\Laravel\HAL\Resource;
+use Illuminate\Support\Collection;
 
 interface HydratorManagerContract
 {

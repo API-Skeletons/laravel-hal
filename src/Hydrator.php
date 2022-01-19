@@ -9,8 +9,7 @@ use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 
 abstract class Hydrator implements HydratorContract
 {
-    /** @var HydratorManagerContract */
-    protected $hydratorManager;
+    protected HydratorManagerContract $hydratorManager;
 
     public function setHydratorManager(HydratorManagerContract $hydratorManager): self
     {

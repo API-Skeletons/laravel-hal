@@ -9,7 +9,7 @@ use ApiSkeletons\Laravel\HAL\HydratorManager as HalHydratorManager;
 final class HydratorManager extends HalHydratorManager
 {
     /** {@inheritdoc} */
-    protected $classHydrators = [
+    protected array $classHydrators = [
         Model\User::class => Hydrator\UserHydrator::class,
     ];
 }

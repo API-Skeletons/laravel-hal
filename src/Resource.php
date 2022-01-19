@@ -13,20 +13,19 @@ use function is_array;
 
 class Resource
 {
-    /** @var array<any> */
-    protected $state = [];
+    /** @var mixed[] */
+    protected array $state = [];
 
-    /** @var array<Link> */
-    protected $links = [];
+    /** @var Link[] */
+    protected array $links = [];
 
-    /** @var array<any> */
-    protected $embedded = [];
+    /** @var mixed[] */
+    protected array $embedded = [];
 
-    /** @var array<any> */
-    protected $paginationData = [];
+    /** @var mixed[] */
+    protected array $paginationData = [];
 
-    /** @var Contracts\HydratorManagerContract */
-    private $hydratorManager;
+    private Contracts\HydratorManagerContract $hydratorManager;
 
     public function setHydratorManager(Contracts\HydratorManagerContract $hydratorManager): self
     {
@@ -35,7 +34,7 @@ class Resource
         return $this;
     }
 
-    /** @param array<any> $data */
+    /** @param mixed[] $data */
     public function setState(?array $data): self
     {
         if (! $data) {
@@ -55,7 +54,7 @@ class Resource
         return $this;
     }
 
-    /** @param string|array<any> $definition */
+    /** @param string|mixed[] $definition */
     public function addLink(string $reference, $definition): self
     {
         array_push($this->links, new Link($reference, $definition));
@@ -70,7 +69,7 @@ class Resource
         return $this;
     }
 
-    public function addEmbeddedResources(string $ref, Collection $collection, string $hydrator = null): self
+    public function addEmbeddedResources(string $ref, Collection $collection, ?string $hydrator = null): self
     {
         if (! isset($this->embedded[$ref])) {
             $this->embedded[$ref] = [];
@@ -91,7 +90,7 @@ class Resource
         return $this;
     }
 
-    /** @param array<any> $paginationData */
+    /** @param mixed[] $paginationData */
     public function addPaginationData(array $paginationData): self
     {
         $this->paginationData = $paginationData;
@@ -99,7 +98,7 @@ class Resource
         return $this;
     }
 
-    /** @return array<any> */
+    /** @return mixed[] */
     public function toArray(): array
     {
         $data = [];

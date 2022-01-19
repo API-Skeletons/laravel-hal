@@ -17,10 +17,10 @@ abstract class HydratorManager implements HydratorManagerContract
     /** @var array<string> */
     protected $classHydrators = [];
 
-    public function paginate(string $description, LengthAwarePaginator $paginator): Resource
+    public function paginate(string $description, LengthAwarePaginator $paginator, ?string $overrideHydrator = null): Resource
     {
         $resource = (new Resource())->setHydratorManager($this);
-        $resource->addEmbeddedResources($description, $paginator->getCollection());
+        $resource->addEmbeddedResources($description, $paginator->getCollection(), $overrideHydrator);
         $resource->addPaginationData([
             'page_count' => $paginator->lastPage(),
             'page_size' => $paginator->perPage(),

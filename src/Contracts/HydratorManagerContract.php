@@ -12,7 +12,7 @@ interface HydratorManagerContract
     /** @param mixed $value */
     public function canExtract($value): bool;
 
-    public function extract(mixed $class, ?string $overrideHydrator = null): Resource|Collection;
+    public function extract(mixed $class, ?string $overrideHydrator = null): Collection|Resource;
 
     /**
      * @param mixed[]|null $state

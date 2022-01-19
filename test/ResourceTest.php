@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApiSkeletonsTest\Laravel\HAL;
 
+use ApiSkeletonsTest\Laravel\HAL\Hydrator\UserHydrator;
 use ApiSkeletonsTest\Laravel\HAL\Model\User;
 use DateTime;
 use Illuminate\Support\Carbon;
@@ -72,6 +73,34 @@ final class ResourceTest extends TestCase
         $this->assertEquals('Test', $resource->toArray()['_embedded']['resources'][0]['name']);
         $this->assertEquals('Test 2', $resource->toArray()['_embedded']['resources'][1]['name']);
         $this->assertEquals('array', $resource->toArray()['_embedded']['resources'][2]['adhoc']);
+    }
+
+    public function testEmbeddedResourcesWithCustomHydrator(): void
+    {
+        $hydratorManager = new HydratorManager();
+        $resource        = $hydratorManager->resource();
+
+        // Test all three possible types pushed to addEmbeddedResources
+        $collection = new Collection();
+        // Hydratable class
+        $user        = new User();
+        $user->id    = 1;
+        $user->name  = 'Test';
+        $user->email = 'test@testing.net';
+        $collection->push($user);
+
+        // Resource
+        $user2        = new User();
+        $user2->id    = 2;
+        $user2->name  = 'Test 2';
+        $user2->email = 'test2@testing.net';
+        $userResource = $hydratorManager->extract($user2);
+        $collection->push($userResource);
+
+        $resource->addEmbeddedResources('resources', $collection, UserHydrator::class);
+
+        $this->assertEquals('Test', $resource->toArray()['_embedded']['resources'][0]['name']);
+        $this->assertEquals('Test 2', $resource->toArray()['_embedded']['resources'][1]['name']);
     }
 
     public function testToEmptyArray(): void

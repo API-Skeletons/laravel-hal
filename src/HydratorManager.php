@@ -17,7 +17,7 @@ abstract class HydratorManager implements HydratorManagerContract
     /** @var array<string> */
     protected $classHydrators = [];
 
-    public function paginate(string $description, LengthAwarePaginator $paginator, ?string $overrideHydrator = null): Resource
+    public function paginate(string $description, LengthAwarePaginator $paginator, $overrideHydrator = null): Resource
     {
         $resource = (new Resource())->setHydratorManager($this);
         $resource->addEmbeddedResources($description, $paginator->getCollection(), $overrideHydrator);

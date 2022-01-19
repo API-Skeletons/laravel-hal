@@ -53,12 +53,7 @@ abstract class HydratorManager implements HydratorManagerContract
         return isset($this->classHydrators[get_class($value)]);
     }
 
-    /**
-     * @param mixed $class
-     *
-     * @return Resource|Collection
-     */
-    public function extract($class, ?string $overrideHydrator = null)
+    public function extract(mixed $class, ?string $overrideHydrator = null): Collection|Resource
     {
         if (! $class) {
             return (new Resource())->setHydratorManager($this);

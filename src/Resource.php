@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use function array_merge;
 use function array_push;
 use function is_array;
+use function is_null;
 
 class Resource
 {
@@ -62,7 +63,7 @@ class Resource
         return $this;
     }
 
-    public function addEmbeddedResource(string $ref, Resource $resource): self
+    public function addEmbeddedResource(string $ref, Resource |null $resource): self
     {
         $this->embedded[$ref] = $resource;
 
@@ -118,6 +119,8 @@ class Resource
                     foreach ($resources as $resource) {
                         $data['_embedded'][$ref][] = $resource->toArray();
                     }
+                } elseif ($resources === null) {
+                    $data['_embedded'][$ref] = $resources;
                 } else {
                     $data['_embedded'][$ref] = $resources->toArray();
                 }

@@ -43,6 +43,16 @@ final class ResourceTest extends TestCase
         $this->assertEquals('testing', $resource1->toArray()['_embedded']['embedded']['test']);
     }
 
+    public function testNullEmbeddedResource(): void
+    {
+        $hydratorManager = new HydratorManager();
+        $resource1       = $hydratorManager->resource();
+        $resource1->addEmbeddedResource('embedded', null);
+        $result = $resource1->toArray();
+
+        $this->assertNull($result['_embedded']['embedded']);
+    }
+
     public function testEmbeddedResources(): void
     {
         $hydratorManager = new HydratorManager();

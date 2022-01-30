@@ -8,6 +8,7 @@ use ApiSkeletons\Laravel\HAL\Contracts\HydratorManagerContract;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+use function app;
 use function collect;
 use function get_class;
 use function is_object;
@@ -73,9 +74,11 @@ abstract class HydratorManager implements HydratorManagerContract
             throw new Exception\NoHydrator(get_class($class));
         }
 
+        // Use DI for hydrators
         $extractorClass = $overrideHydrator ?: $this->classHydrators[get_class($class)];
+        $hydrator       = app($extractorClass);
 
-        return (new $extractorClass())->setHydratorManager($this)->extract($class);
+        return $hydrator->setHydratorManager($this)->extract($class);
     }
 
     /**

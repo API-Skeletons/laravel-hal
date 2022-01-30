@@ -1,6 +1,40 @@
 Specifying a Custom Hydrator For Extracting
 ===========================================
 
+Dependency Injection
+--------------------
+
+All hydrators created through the HydratorManager are created using the
+service manager built into the Application object of Laravel.
+
+Embedded Resources
+------------------
+
+For each of the `addEmbeddedResource` functions you may include a third parameter
+to the hydrator to extract the resource with.  This is useful when using proxy objects
+(such as Doctrine) or when you're using alternative hydrators such as a controller
+action which returns data in a specific format, such as removing all the links from the
+hydrator responses.
+
+.. code:: php
+  return $this->hydratorManager->resource($data)
+      ->addLink('self', route('routeName', $data['id']))
+      ->addEmbeddedResources('example', $class->roles, CustomHydrator::class);
+
+Pagination
+----------
+
+For the ``paginate`` function  you may include a third parameter to the hydrator
+to extract the resource with. This is useful when using proxy objects
+(such as Doctrine) or when you're using alternative hydrators.
+
+.. code:: php
+  return HALHydratorManager::paginate('data', $data, CustomHydrator::class)->toArray();
+
+
+Pivot Data
+----------
+
 There are instances where a model may not exist for data such as *pivot* data.
 There are very good reasons for including pivot data with a HAL response but
 it has two big drawbacks:

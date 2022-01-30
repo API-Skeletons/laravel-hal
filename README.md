@@ -26,6 +26,14 @@ This is a direct implementation of [https://tools.ietf.org/html/draft-kelly-json
 
 ### [Read The Documentation](https://api-skeletons-laravel-hal.readthedocs.io/en/latest/index.html)
 
+## Quick Look
+
+```php
+  return $this->hydratorManager->resource($data)
+      ->addLink('self', route('routeName::fetch', $class->id))
+      ->addEmbeddedResource('example', $class->example)
+      ->toArray();
+```
 
 ## Quick Start
 

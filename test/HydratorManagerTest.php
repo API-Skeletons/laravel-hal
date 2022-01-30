@@ -6,7 +6,9 @@ namespace ApiSkeletonsTest\Laravel\HAL;
 
 use ApiSkeletons\Laravel\HAL\Exception\NoHydrator;
 use ApiSkeletons\Laravel\HAL\Resource;
+use ApiSkeletonsTest\Laravel\HAL\Hydrator\DiHydrator;
 use ApiSkeletonsTest\Laravel\HAL\Model\User;
+use Illuminate\Foundation\Application;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
@@ -51,6 +53,18 @@ final class HydratorManagerTest extends TestCase
         $this->assertEquals('Test', $array['name']);
         $this->assertEquals('testing@test.net', $array['email']);
         $this->assertEquals('https://test/user/1', $array['_links']['self']['href']);
+    }
+
+    public function testDiExtract(): void
+    {
+        $hydratorManager = new HydratorManager();
+        $user            = new User();
+
+        $resource = $hydratorManager->extract($user, DiHydrator::class);
+        $this->assertInstanceOf(Resource::class, $resource);
+
+        $array = $resource->toArray();
+        $this->assertEquals(Application::class, $array['app']);
     }
 
     public function testNoHydratorInExtract(): void

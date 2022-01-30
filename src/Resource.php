@@ -63,9 +63,13 @@ class Resource
         return $this;
     }
 
-    public function addEmbeddedResource(string $ref, Resource |null $resource): self
+    public function addEmbeddedResource(string $ref, object |null $resource, ?string $hydrator = null): self
     {
-        $this->embedded[$ref] = $resource;
+        if ($resource instanceof Resource || $resource === null) {
+            $this->embedded[$ref] = $resource;
+        } else {
+            $this->embedded[$ref] = $this->hydratorManager->extract($resource, $hydrator);
+        }
 
         return $this;
     }

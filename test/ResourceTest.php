@@ -53,6 +53,21 @@ final class ResourceTest extends TestCase
         $this->assertNull($result['_embedded']['embedded']);
     }
 
+    public function testObjectEmbeddedResource(): void
+    {
+        $user        = new User();
+        $user->id    = 1;
+        $user->name  = 'Test';
+        $user->email = 'test@testing.net';
+
+        $hydratorManager = new HydratorManager();
+        $resource1       = $hydratorManager->resource();
+        $resource1->addEmbeddedResource('user', $user);
+        $result = $resource1->toArray();
+
+        $this->assertEquals(1, $result['_embedded']['user']['id']);
+    }
+
     public function testEmbeddedResources(): void
     {
         $hydratorManager = new HydratorManager();

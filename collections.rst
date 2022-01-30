@@ -5,22 +5,23 @@ Collections
 -----------
 
 You may assign a collection of resources to the ``_embedded`` section of any
-resource.  And you can directly assign a collection of mapped [or unmapped!]
+resource.  And you can directly assign a collection of mapped (or unmapped!)
 models to a resource as a collection
 
+
+Assign an array of objects to a resource
 .. code:: php
 
   HALHydratorManager::resource()
-    ->addEmbeddedResources('users', HALHydratorManager::extract($model->users))
-Or
+    ->addEmbeddedResources('users', $model->users)
 
+Assign an array of objects to a resource using a custom hydrator
 .. code:: php
 
   HALHydratorManager::resource()
-    ->addEmbeddedResources('users', HALHydratorManager::extract($model->users, CustomHydrator::class))
+    ->addEmbeddedResources('users', $model->users, CustomHydrator::class)
 
-Or
-
+Create a collection, push objects into it, and assign as embedded resources
 .. code:: php
 
   $userCollection = collect();
@@ -34,8 +35,8 @@ Or
   return HALHydratorManager::resource()
       ->addEmbeddedResources('users', $userCollection);
 
-Or
-
+Extract resources into an arry using a custom hydrator and assign as
+embedded resources
 .. code:: php
 
   $userCollection = collect();
@@ -47,8 +48,7 @@ Or
   }
 
   return HALHydratorManager::resource()
-      ->addEmbeddedResources('users', $userCollection)
-      ;
+      ->addEmbeddedResources('users', $userCollection);
 
 
 Pagination
@@ -61,16 +61,37 @@ class.  This paginator is created from a controller
 
 .. code:: php
 
-    public function fetchAll(Request $request)
-    {
-        $data = DataModel::filtered()->sorted()->paginate(50);
+  public function fetchAll(Request $request)
+  {
+      $data = Model::filtered()->sorted()->paginate(50);
 
-        return HALHydratorManager::paginate('data', $data)->toArray();
-    }
+      return HALHydratorManager::paginate('data', $data)->toArray();
+  }
 
-For the ``paginate`` function  you may include a third parameter to the hydrator 
-to extract the resource with. This is useful when using proxy objects 
-(such as Doctrine) or when you're using alternative hydrators.
+.. code:: json
+  {
+    "_links":{
+      "self":{
+        "href": "http://website.com/data?page=1"
+      },
+      "first":{
+        "href": "http://website.com/data?page=1"
+      },
+      "next":{
+        "href": "http://website.com/data?page=2"
+      }
+      "last":{
+        "href": "http://website.com/data?page=3"
+      }
+    },
+    "_embedded":{
+      "data":[{"_links":{"self":{"href": "http://website.com/data/1"…]
+    },
+    "page_count": 3,
+    "page_size": 50,
+    "total_items": 150,
+    "page": 1
+  }
 
 The above example uses the `searchable <https://github.com/jedrzej/searchable>`_
 and `sortable <https://github.com/jedrzej/sortable>`_ libraries to turn an api

@@ -1,11 +1,33 @@
 Embedded Resources
 ==================
 
-The HAL specification lays out an ``_embedded`` section optional for each
-resource.  Instead of using embedded data in your HAL resource state, that kind
-of data belongs in the ``_embedded`` section.
+The HAL specification lays out an ``_embedded`` section that is optional for
+each resource.  Instead of using embedded data in your HAL resource state,
+that kind of data belongs in the ``_embedded`` section.
 
-**THE WRONG WAY**::
+Embedding Resources
+-------------------
+
+You may embed as many resources as you see fit.  Embedded resources should have
+a relationship with the parent data.  Below, a related class with its own
+hydrator is assigned as a resource to the currently extracting class
+
+.. code:: php
+
+  return $this->hydratorManager->resource($data)
+      ->addLink('self', route('routeName', $class->id))
+      ->addEmbeddedResource('example', $class->example);
+
+You may embed an array of objects under a single resource:
+
+.. code:: php
+
+  return $this->hydratorManager->resource($data)
+      ->addLink('self', route('routeName', $data['id']))
+      ->addEmbeddedResources('example', $class->roles);
+
+**THE WRONG WAY**
+.. code:: json
 
   {
     "name": "example",
@@ -17,9 +39,9 @@ of data belongs in the ``_embedded`` section.
     "address": {
       "zipcode": "12345"
     }
-  }
 
-**THE HAL WAY**::
+**THE HAL WAY**
+.. code::json
 
   {
     "_links": {
@@ -69,33 +91,5 @@ of data belongs in the ``_embedded`` section.
       }
     }
   }
-
-
-Embedding Resources
--------------------
-
-You may embed as many resources as you see fit.  Embedded resources should have
-a relationship with the parent data.  Below a related class with its own
-hydrator is assigned as a resource to the currently extracting class
-
-.. code:: php
-
-  return $this->hydratorManager->resource($data)
-      ->addLink('self', route('routeName', $data['id']))
-      ->addEmbeddedResource('example', $this->hydratorManager->extract($class->example));
-
-You may embed an array of objects under a single resource:
-
-.. code:: php
-
-  return $this->hydratorManager->resource($data)
-      ->addLink('self', route('routeName', $data['id']))
-      ->addEmbeddedResources('example', $class->roles);
-
-For each of these `addEmbeddedResource` functions you may include a third parameter
-to the hydrator to extract the resource with.  This is useful when using proxy objects
-(such as Doctrine) or when you're using alternative hydrators such as a controller
-action which returns data in a specific format, such as removing all the links from the
-hydrator responses.
 
 .. include:: footer.rst

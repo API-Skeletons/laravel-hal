@@ -8,7 +8,7 @@ in the ``_embedded`` section.  Build this inside your controller
 .. code:: php
 
   return HALHydratorManager::resource()
-      ->addEmbeddedResource('model1', HALHydratorManager::extract($model1))
-      ->addEmbeddedResources('model2', HALHydratorManager::extract($model2))
+      ->addEmbeddedResource('model1', $model1)
+      ->addEmbeddedResources('model2', $model2)
       ->addLink('self', $request->url())
       ->toArray();

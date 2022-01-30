@@ -84,7 +84,7 @@ final class UserHydrator extends Hydrator
         // is used for arrays and `addEmbeddedResource` is used for classes
         return $this->hydratorManager->resource($data)
             ->addLink('self', route('hal/user::fetch', $class->id))
-            ->addEmbeddedResources('roles', $this->hydratorManager->extract($class->roles))
+            ->addEmbeddedResources('roles', $class->roles)
             ;
     }
 }

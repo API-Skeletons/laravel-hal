@@ -71,7 +71,11 @@ abstract class HydratorManager implements HydratorManagerContract
         }
 
         if (! $overrideHydrator && ! isset($this->classHydrators[get_class($class)])) {
-            throw new Exception\NoHydrator(get_class($class));
+            if (! isset($this->classHydrators['*']) || ! $this->classHydrators['*']) {
+                throw new Exception\NoHydrator(get_class($class));
+            }
+
+            $overrideHydrator = $this->classHydrators['*'];
         }
 
         // Use DI for hydrators

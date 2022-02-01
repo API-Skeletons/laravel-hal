@@ -7,6 +7,7 @@ namespace ApiSkeletonsTest\Laravel\HAL;
 use ApiSkeletons\Laravel\HAL\Exception\NoHydrator;
 use ApiSkeletons\Laravel\HAL\Resource;
 use ApiSkeletonsTest\Laravel\HAL\Hydrator\DiHydrator;
+use ApiSkeletonsTest\Laravel\HAL\Hydrator\WildcardHydrator;
 use ApiSkeletonsTest\Laravel\HAL\Model\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -76,6 +77,21 @@ final class HydratorManagerTest extends TestCase
         $invalid         = new stdClass();
 
         $hydratorManager->extract($invalid);
+    }
+
+    public function testWildcardHydrator(): void
+    {
+        $hydratorManager = new WildcardHydratorManager();
+        $user            = new User();
+        $user->id        = 1;
+        $user->name      = 'Test';
+        $user->email     = 'testing@test.net';
+
+        $resource = $hydratorManager->extract($user);
+        $this->assertInstanceOf(Resource::class, $resource);
+
+        $array = $resource->toArray();
+        $this->assertEquals(User::class, $array['class']);
     }
 
     public function testExtractCollection(): void

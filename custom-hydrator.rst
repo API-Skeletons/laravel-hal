@@ -7,6 +7,24 @@ Dependency Injection
 All hydrators created through the HydratorManager are created using the
 service manager built into the Application object of Laravel.
 
+Wildcard Hydrator
+-----------------
+
+You may specify a default hydrator on the hydrator manager using '*'.  The
+default will be used if an entity is encountered which does not have a custom
+hydrator or a hydrator specifically assigned to it.  This eases the
+configuration of the hydrator manager if your entities can be extracted this
+way.
+
+.. code:: php
+  public function __construct()
+  {
+      $this->classHydrators = [
+          '*' => \App\HAL\Hydrator\DefaultHydrator::class,
+      ];
+  }
+
+
 Embedded Resources
 ------------------
 

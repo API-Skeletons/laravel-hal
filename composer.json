@@ -26,5 +26,11 @@
         "doctrine/coding-standard": "^8.2",
         "php-coveralls/php-coveralls": "^2.4",
         "vimeo/psalm": "^4.18"
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
